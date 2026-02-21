@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  phone     String   @unique
+  email     String?  @unique
+  password  String
+  role      String
+  address   String?
+  city      String?
+  state     String?
+  pincode   String?
+  latitude  Float?
+  longitude Float?
+  createdAt DateTime @default(now())
+
+  jobsAsUser       Job[]          @relation("UserJobs")
+  jobsAsWorker     Job[]          @relation("WorkerJobs")
+  workerProfile    WorkerProfile?
+  quotations       Quotation[]
+  reviewsGiven     Review[]       @relation("UserReviews")
+  reviewsReceived  Review[]       @relation("WorkerReviews")
+}
+
+model WorkerProfile {
+  id            String   @id @default(uuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  primarySkill  String
+  skills        String   @default("[]")
+  experience    Int      @default(0)
+  description   String?
+  rating        Float    @default(0)
+  totalJobs     Int      @default(0)
+  verified      Boolean  @default(false)
+  available     Boolean  @default(true)
+  serviceRadius Int      @default(10)
+  createdAt     DateTime @default(now())
+}
+
+model Job {
+  id          String     @id @default(uuid())
+  userId      String
+  user        User       @relation("UserJobs", fields: [userId], references: [id], onDelete: Cascade)
+  workerId    String?
+  worker      User?      @relation("WorkerJobs", fields: [workerId], references: [id], onDelete: SetNull)
+  description String
+  status      String     @default("PENDING")
+  price       Float?
+  address     String
+  latitude    Float
+  longitude   Float
+  createdAt   DateTime   @default(now())
+
+  quotations Quotation[]
+  reviews    Review[]
+
+  @@index([userId])
+  @@index([workerId])
+  @@index([status])
+}
+
+model Quotation {
+  id        String          @id @default(uuid())
+  jobId     String
+  job       Job             @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  workerId  String
+  worker    User            @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  price     Float
+  status    String        @default("PENDING")
+  createdAt DateTime        @default(now())
+
+  @@unique([jobId, workerId])
+  @@index([jobId])
+  @@index([workerId])
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  jobId     String
+  job       Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation("UserReviews", fields: [userId], references: [id], onDelete: Cascade)
+  workerId  String
+  worker    User     @relation("WorkerReviews", fields: [workerId], references: [id], onDelete: Cascade)
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+
+  @@unique([jobId])
+  @@index([workerId])
+}
