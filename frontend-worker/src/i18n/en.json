@@ -1,0 +1,20 @@
+{
+    "app_name": "Worker App",
+    "dashboard": "Dashboard",
+    "earnings_wallet": "Earnings Wallet",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "jobs": "Available Jobs",
+    "listen": "Listen",
+    "place_bid": "Place Bid",
+    "speak_price": "Speak Price",
+    "submit_bid": "Submit Bid",
+    "your_price": "Your Price (₹)",
+    "message": "Message to Client",
+    "deal_done": "Deal Done!",
+    "deal_message": "Your bid was accepted. Head to the job location!",
+    "language": "Language",
+    "total_earnings": "Total Earnings",
+    "jobs_completed": "Jobs Completed",
+    "no_jobs": "No jobs available right now."
+}

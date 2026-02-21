@@ -1,0 +1,20 @@
+{
+    "app_name": "कामगार ऐप",
+    "dashboard": "डैशबोर्ड",
+    "earnings_wallet": "कमाई बटुआ",
+    "monthly": "मासिक",
+    "yearly": "वार्षिक",
+    "jobs": "उपलब्ध काम",
+    "listen": "सुनें",
+    "place_bid": "बोली लगाएं",
+    "speak_price": "कीमत बोलें",
+    "submit_bid": "बोली जमा करें",
+    "your_price": "आपकी कीमत (₹)",
+    "message": "ग्राहक को संदेश",
+    "deal_done": "काम मिल गया!",
+    "deal_message": "आपकी बोली स्वीकार कर ली गई है। काम की जगह पर जाएं!",
+    "language": "भाषा",
+    "total_earnings": "कुल कमाई",
+    "jobs_completed": "पूरे हुए काम",
+    "no_jobs": "अभी कोई काम उपलब्ध नहीं है।"
+}
