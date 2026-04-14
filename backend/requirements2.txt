@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+motor
+python-dotenv
+google-generativeai
+Pillow
+httpx
+python-multipart
+websockets
+pydantic
+motor
+pymongo
+watchfiles

@@ -1,0 +1,25 @@
+from fastapi import WebSocket
+from typing import Dict, List
+
+class ConnectionManager:
+    def __init__(self):
+        # worker_id -> WebSocket
+        self.active_connections: Dict[str, WebSocket] = {}
+
+    async def connect(self, worker_id: str, websocket: WebSocket):
+        await websocket.accept()
+        self.active_connections[worker_id] = websocket
+
+    def disconnect(self, worker_id: str):
+        if worker_id in self.active_connections:
+            del self.active_connections[worker_id]
+
+    async def send_personal_message(self, message: dict, worker_id: str):
+        if worker_id in self.active_connections:
+            await self.active_connections[worker_id].send_json(message)
+
+    async def broadcast(self, message: dict):
+        for connection in self.active_connections.values():
+            await connection.send_json(message)
+
+manager = ConnectionManager()
